@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/static/css/jquery.multiselect.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css.css">
+    <head>
+        <title>Export To csv</title>
+    </head>
+    <body>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-2">
+              <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Export To CSV</h1>
+                <p class="lead text-muted">Description of what this small app does.</p>
+              </div>
+            </div>
+          </section>
+          <section>
+                <div class="container col-md-5 text-left">
+                            
+                    <form action="{{ url_for('load_filtered_header') }}" method="post">                            
+                        <div class=" mb-3">
+
+                            <select name="headers[]" multiple="multiple" class="3col active form-control">
+                                
+                                {% for header in items[0].keys() %}
+                                    {% if header in headers %}
+                                        <option value="{{header}}" selected>{{ header }}</option>
+                                    {% else %}
+                                        <option value="{{header}}">{{ header }}</option>
+                                    {% endif %}
+                                  {% endfor %}
+                                
+                              </select>                              
+    
+        
+
+                        </div>
+                        <button type="submit" class="btn btn-success">Load</button>
+                    </form>
+                </div>
+                
+          </section>
+          <section class="mt-3">
+                <div class="container">
+                    
+                    <h2 class="fw-light">{{greet}}</h2>
+                    <hr/>
+                    <div class="table-responsive table-hover">
+                        <table lass="display nowrap" style="width:100%" id="table_to_export" class="table table-sm table-striped table-sm">
+                          <thead>
+                            <tr>
+                                <!-- <th scope="col">#</th> -->
+                                {% for header in headers %}
+                                    <th scope="col">{{ header }}</th>
+                                  {% endfor %}
+                            </tr>
+                          </thead>
+                          <tbody>
+                                                    
+                            {% for row in items %}
+                                <tr>
+                                    
+                                {% for header in headers %}      
+                                    <td>{{row['availability-domain']}}</td>
+                                {% endfor %}
+
+                                </tr>
+                            {% endfor %}
+
+                          </tbody>
+                        </table>
+                      </div>
+                </div>
+          </section>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/static/main.js"></script>
+    
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/jquery.multiselect.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+</html>
